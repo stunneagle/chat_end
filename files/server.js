@@ -14,7 +14,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: "*",
+    origin: "http://localhost:3000",
     methods: ["GET", "POST"],
   },
 });
@@ -42,13 +42,13 @@ app.use(passport.session());
 //     credentials: true,
 //   })
 // );
- app.use(
-   cors({
-     origin: "*",
-     methods: ["GET", "POST", "PUT", "DELETE"],
-     credentials: true,
-   })
- );
+//  app.use(
+//    cors({
+//      origin: "http://localhost:3000",
+//      methods: ["GET", "POST", "PUT", "DELETE"],
+//      credentials: true,
+//    })
+//  );
 //app.use(cors());
 
 // Connect to MongoDB
@@ -120,6 +120,8 @@ app.put("/updateprofile/:username", async (req, res) => {
 
 // Define a route to fetch all conversation names
 app.get("/loadconversations/:username", async (req, res) => {
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // Set the CORS header
+res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE"); 
   try {
     const username = req.params.username;
     const db = req.db;
@@ -185,6 +187,8 @@ app.post("/createconversation", async (req, res) => {
 
 // Join an existing conversation
 app.post("/joinconversation", async (req, res) => {
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // Set the CORS header
+res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE"); 
   try {
     let { conversationName, username } = req.body;
 
@@ -288,6 +292,8 @@ app.delete("/deleteconversation/:conversationName", async (req, res) => {
 
 // Login route
 app.post("/login", async (req, res) => {
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // Set the CORS header
+res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE"); 
   try {
     const { username, password } = req.body;
 
@@ -318,6 +324,8 @@ app.post("/login", async (req, res) => {
 
 // Register route
 app.post("/register", async (req, res) => {
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // Set the CORS header
+res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE"); 
   try {
     const db = req.db;
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -347,6 +355,8 @@ app.get("/logout", (req, res) => {
 
 // Define a route to fetch messages for a conversation ID
 app.get("/messages/:conversationName", async (req, res) => {
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // Set the CORS header
+res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE"); 
   try {
     // Extract conversation ID from request parameters
     const { conversationName } = req.params;
@@ -434,7 +444,7 @@ function generateToken(user) {
     username: user.username,
   };
 
-  // Sign the JWT token with a secret key
-  return jwt.sign(payload, 'your_secret_key', { expiresIn: '876000h' }); // Token expires in 1 hour
+
+  return jwt.sign(payload, 'your_secret_key', { expiresIn: '876000h' }); 
 }
 
