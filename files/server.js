@@ -49,7 +49,7 @@ app.use(passport.session());
 //      credentials: true,
 //    })
 //  );
-//app.use(cors());
+app.use(cors());
 
 // Connect to MongoDB
 const dbPromise = connectToMongoDB();
