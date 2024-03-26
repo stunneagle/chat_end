@@ -6,7 +6,7 @@ const uri = "mongodb+srv://dolissmith0011:Vw0QVGyGXMq8Zmkb@cluster0.dg3llsp.mong
 const dbName = "stunner";
 
 
-const client = new MongoClient(process.env.MONGODB_URI, {
+const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
     strict: true,
