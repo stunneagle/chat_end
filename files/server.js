@@ -9,7 +9,7 @@ const http = require("http");
 const jwt = require('jsonwebtoken');
 const socketIo = require("socket.io");
 //const conversationRouter = require("./route");
-
+//"mongodb+srv://dolissmith0011:Vw0QVGyGXMq8Zmkb@cluster0.dg3llsp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
@@ -447,4 +447,3 @@ function generateToken(user) {
 
   return jwt.sign(payload, 'your_secret_key', { expiresIn: '876000h' }); 
 }
-
